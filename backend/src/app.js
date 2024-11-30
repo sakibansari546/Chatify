@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 // ROutes Import
 import userRoutes from './routes/user.route.js';
+import chatRoutes from './routes/chat.route.js';
 
 // Middlewares
 const corsOptions = {
@@ -27,10 +28,9 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth/', userRoutes);
+app.use('/api/chat/', chatRoutes);
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     connectDB();
 });
-
-// Small change for testing other Branch
