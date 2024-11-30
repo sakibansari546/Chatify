@@ -17,6 +17,9 @@ const chatSchema = new mongoose.Schema({
                 type: String,
                 required: true
             }, // Message ka content
+            image: {
+                type: String,
+            }, // Message ka content
             timestamp: {
                 type: Date,
                 default: Date.now

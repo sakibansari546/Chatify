@@ -30,10 +30,16 @@ export const getMessages = async (req, res) => {
         res.status(500).json({ success: false, messages: "Internal Server error!", error: error.message });
     }
 };
+
 export const sendMessage = async (req, res) => {
     try {
         const { id: userToChatId, message } = req.body;
         const myId = req.userId;
+        const image = req.file;
+
+        if (!image || !message) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
 
         // Fetch both users
         const [userToChat, myUser] = await Promise.all([
