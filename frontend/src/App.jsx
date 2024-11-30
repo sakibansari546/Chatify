@@ -27,6 +27,8 @@ function App() {
 
   useEffect(() => {
     const callDispatchs = async () => {
+      console.log("Rendered");
+
       await dispatch(checkAuth());
       // if (authUser) {
       await dispatch(fetchFriends());
@@ -34,6 +36,7 @@ function App() {
       await dispatch(connectSocket());
       await dispatch(sendRealtimeRequest());
       await dispatch(acceptRealtimeRequest());
+      console.log("After Rendered");
       // }
     }
     callDispatchs();
