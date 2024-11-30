@@ -24,13 +24,12 @@ export const chatSlice = createSlice({
             };
         },
 
-
         addMessage: (state, action) => {
-            const { chatId, message } = action.payload;
+                const { chatId, message } = action.payload;
             if (!state.messages[chatId]) {
                 state.messages[chatId] = [];
             }
-            state.messages[chatId].push(message);
+            state.messages[chatId] = [...state.messages[chatId], message]; // Immutable update
         },
 
 

@@ -19,6 +19,7 @@ import Friends from './pages/Friends';
 import Notification from './components/Notification';
 
 import { acceptRealtimeRequest, checkAuth, connectSocket, fetchFriends, fetchPendingRequests, sendRealtimeRequest } from './store/actions/userActions';
+import { sendRealTiMessage } from './store/actions/chatActions';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,10 +36,12 @@ function App() {
       await dispatch(connectSocket());
       await dispatch(sendRealtimeRequest());
       await dispatch(acceptRealtimeRequest());
+
+      await dispatch(sendRealTiMessage());
       // }
     }
     callDispatchs();
-  }, [checkAuth, fetchFriends, fetchPendingRequests, connectSocket, sendRealtimeRequest, acceptRealtimeRequest]);
+  }, [checkAuth, fetchFriends, fetchPendingRequests, connectSocket, sendRealtimeRequest, acceptRealtimeRequest, sendRealTiMessage]);
 
   if (isCheckingAuth && !authUser) return (
     <div className='flex items-center justify-center w-full h-screen'>

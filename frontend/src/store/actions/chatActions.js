@@ -23,8 +23,27 @@ export const sendMessage = (userId, formData) => async (dispatch) => {
         const res = await axios.post(`${baseURL}/chat/send-message/${userId}`, formData, { withCredentials: true });
         if (res.data.success) {
             dispatch(addMessage({ chatId: userId, message: res.data.newMessage }));
+            dispatch(sendRealTiMessage());
         }
     } catch (error) {
         console.log("sned Message error", error);
+    }
+}
+
+export const sendRealTiMessage = () => async (dispatch, getState) => {
+    const { user, chat } = getState();
+    const { socket } = user;
+    const { currentChat } = chat;
+
+    if (socket) {
+        socket.on("newMessage", (data) => {
+            if (currentChat == data.chatId) {
+                dispatch(addMessage({ chatId: data.chatId, message: data.message }))
+            }
+        });
+
+        return () => {
+            socket.off("newMessage");
+        };
     }
 }

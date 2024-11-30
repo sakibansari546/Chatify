@@ -253,7 +253,6 @@ export const acceptRealtimeRequest = () => async (dispatch, getState) => {
         // Bind only once to avoid duplicate listeners
         socket.off("requestAccepted"); // Prevent multiple listeners
         socket.on("requestAccepted", (data) => {
-            console.log("Request Accepted Real-time:", data); // Debug log
             toast.success(`${data.userName} request has been accepted!`);
             dispatch(setFriends(data.friends));
             dispatch(setPendingRequests(data.pendingRequests));

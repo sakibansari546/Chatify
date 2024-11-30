@@ -1,5 +1,7 @@
 import Message from "../models/chat.model.js"
 import User from "../models/user.model.js"
+import { getReceiverSocketId, io } from '../lib/socket.js';
+import cloudinary from '../lib/cloudinary.js'
 
 export const getMessages = async (req, res) => {
     try {
@@ -37,9 +39,6 @@ export const sendMessage = async (req, res) => {
         const { id: userToChatId } = req.params;
         const myId = req.userId;
         const image = req.file;
-        console.log(userToChatId, myId);
-        console.log(message, image);
-
 
         if (!image && !message) {
             return res.status(400).json({ error: "All fields are required" });
@@ -87,6 +86,14 @@ export const sendMessage = async (req, res) => {
         });
 
         res.status(200).json({ success: true, newMessage });
+
+        // Real-time update using Socket.IO
+        // Real-time update using Socket.IO
+        const receiverSocketId = await getReceiverSocketId(userToChatId); // Ensure this function is implemented correctly
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", { chatId: userToChatId, message: newMessage });
+        }
+
     } catch (error) {
         res.status(500).json({ success: false, messages: "Internal Server error!", error: error.message });
     }

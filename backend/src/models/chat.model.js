@@ -13,7 +13,6 @@ const chatSchema = new mongoose.Schema({
     }, // Message kisne bheja
     content: {
         type: String,
-        required: true
     }, // Message ka content
     image: {
         type: String,

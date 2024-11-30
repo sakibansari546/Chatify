@@ -3,7 +3,7 @@ import ChatHeader from '../components/ChatHeader'
 import MessageInput from '../components/MessageInput'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchMessages } from '../store/actions/chatActions'
+import { fetchMessages, sendRealTiMessage } from '../store/actions/chatActions'
 
 const ChatContainer = () => {
     const { selectedUser } = useParams();
@@ -66,7 +66,7 @@ const ChatContainer = () => {
     return (
         <div className='min-h-screen bg-base-100'>
             <ChatHeader seletedUser={selectedUser} />
-            <div className="flex-1 min-h-[80vh] overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 min-h-[80vh] overflow-y-auto p-4 space-y-4 pb-12">
                 {Object.entries(groupedMessages).map(([date, messages]) => (
                     <div key={date}>
                         {/* Display the date */}
