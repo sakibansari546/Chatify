@@ -2,6 +2,7 @@ import { Send, Users } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFriends } from '../store/actions/userActions';
+import { setCurrentChat } from '../store/slices/chatSlice';
 
 const Friends = () => {
     const dispath = useDispatch();
@@ -47,7 +48,7 @@ const Friends = () => {
                                 {
                                     !friends.length ? "No friends"
                                         : friends.map((friend) => (
-                                            <div key={friend._id} className="p-2 flex items-center justify-between hover:bg-base-200 cursor-pointer bg-base-200">
+                                            <div key={friend._id} onClick={() => dispath(setCurrentChat(friend))} className="p-2 flex items-center justify-between hover:bg-base-200 cursor-pointer bg-base-200">
                                                 <div className="flex items-center gap-3">
                                                     <div className="avatar">
                                                         <div className="w-12 rounded-full">

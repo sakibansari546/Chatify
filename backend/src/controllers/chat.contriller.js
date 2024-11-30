@@ -1,9 +1,9 @@
-import Message from "../models/chet.model.js"
+import Message from "../models/chat.model.js"
 import User from "../models/user.model.js"
 
 export const getMessages = async (req, res) => {
     try {
-        const { id: userToChatId } = req.body;
+        const { id: userToChatId } = req.params;
         const myId = req.userId;
 
         // Fetch both users
@@ -23,7 +23,7 @@ export const getMessages = async (req, res) => {
         // Get messages
         const messages = await Message.find({
             participants: { $all: [myId, userToChatId] }
-        }).sort({ updatedAt: -1 });
+        })
 
         res.status(200).json({ success: true, messages });
     } catch (error) {
@@ -33,11 +33,15 @@ export const getMessages = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
     try {
-        const { id: userToChatId, message } = req.body;
+        const { message } = req.body;
+        const { id: userToChatId } = req.params;
         const myId = req.userId;
         const image = req.file;
+        console.log(userToChatId, myId);
+        console.log(message, image);
 
-        if (!image || !message) {
+
+        if (!image && !message) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -55,11 +59,31 @@ export const sendMessage = async (req, res) => {
             return res.status(400).json({ error: "You are not friends with this user" });
         }
 
+        let imageUrl = null;
+        if (image) {
+            const uploadStream = async (buffer) => {
+                return new Promise((resolve, reject) => {
+                    const stream = cloudinary.uploader.upload_stream(
+                        { resource_type: "image", folder: "chatApp/messages" },
+                        (error, result) => {
+                            if (error) reject(error);
+                            else resolve(result);
+                        }
+                    );
+                    stream.end(buffer);
+                });
+            };
+
+            const cloudRes = await uploadStream(image.buffer);
+            imageUrl = cloudRes.secure_url;
+        }
+
         // Create and save message
         const newMessage = await Message.create({
             participants: [myId, userToChatId],
             sender: myId,
             content: message,
+            image: imageUrl,
         });
 
         res.status(200).json({ success: true, newMessage });

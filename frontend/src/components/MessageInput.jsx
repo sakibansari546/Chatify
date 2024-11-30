@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react'
 import { Image, Loader2, Send, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { sendMessage } from '../store/actions/chatActions';
 
-const MessageInput = () => {
+const MessageInput = ({ friend }) => {
+    const dispatch = useDispatch();
 
     const fileInputRef = useRef(null);
     const [text, setText] = useState("");
@@ -25,27 +28,30 @@ const MessageInput = () => {
         setImagePreview(null);
         fileInputRef.current.value = null;
     }
-
     const handleSendMessage = async (e) => {
         e.preventDefault();
-        if (!text.trim() && !imagePreview) retrun
+        if (!text.trim() && !imagePreview) return; // Fix return spelling
 
         try {
             const formData = new FormData();
-            formData.append("text", text);
-            formData.append("image", fileInputRef.current.files[0]);
-            setLoading(true)
-            setLoading(false)
-            // clear form values
+            formData.append("message", text);
+            if (fileInputRef.current && fileInputRef.current.files[0]) {
+                formData.append("image", fileInputRef.current.files[0]);
+            }
+
+            setLoading(true);
+            await dispatch(sendMessage(friend._id, formData)); // Dispatch action
+            setLoading(false);
+
+            // Clear form values
             setText("");
             setImagePreview(null);
-            fileInputRef.current.value = null;
-
+            if (fileInputRef.current) fileInputRef.current.value = null; // Safe reset
         } catch (error) {
-            toast.error(error.response.data.message);
+            setLoading(false); // Stop loading on error
+            toast.error(error.response?.data?.message || "Something went wrong!");
         }
-    }
-
+    };
 
 
     return (

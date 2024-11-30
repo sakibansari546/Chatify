@@ -27,7 +27,6 @@ function App() {
 
   useEffect(() => {
     const callDispatchs = async () => {
-      console.log("Rendered");
 
       await dispatch(checkAuth());
       // if (authUser) {
@@ -36,7 +35,6 @@ function App() {
       await dispatch(connectSocket());
       await dispatch(sendRealtimeRequest());
       await dispatch(acceptRealtimeRequest());
-      console.log("After Rendered");
       // }
     }
     callDispatchs();
@@ -65,7 +63,7 @@ function App() {
           </Route>
 
         </Route>
-        <Route path='chat/:seletedUser' element={authUser ? <ChatContainer /> : <Navigate to='/login' />} />
+        <Route path='chat/:selectedUser' element={authUser ? <ChatContainer /> : <Navigate to='/login' />} />
 
       </Routes>
       <Toaster />
