@@ -37,9 +37,9 @@ export const sendRealTiMessage = () => async (dispatch, getState) => {
 
     if (socket) {
         socket.on("newMessage", (data) => {
-            if (currentChat == data.chatId) {
-                dispatch(addMessage({ chatId: data.chatId, message: data.message }))
-            }
+            dispatch(addMessage({ chatId: data.chatId, message: data.message }));
+            toast.success("New Message");
+            console.log("new message", data);;
         });
 
         return () => {

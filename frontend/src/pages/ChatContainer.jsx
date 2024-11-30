@@ -20,7 +20,7 @@ const ChatContainer = () => {
             await dispatch(fetchMessages(friend._id));
         }
         callingFn()
-    }, [selectedUser, friend, dispatch]);
+    }, [selectedUser, friend, fetchMessages]);
 
     const messageEndRef = useRef();
 
