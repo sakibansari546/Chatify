@@ -129,7 +129,7 @@ export const sendFriendRequestAction = (userId) => async (dispatch) => {
             // Update pendingRequests in Redux store
             dispatch(setPendingRequests(res.data.pendingRequests)); // Set entire pendingRequests array
             toast.success(res.data.message || "Friend request sent successfully!"); // Success message
-            dispatch(sendRealtimeRequest());
+            // dispatch(sendRealtimeRequest());
         }
     } catch (error) {
         // Error handling
@@ -147,7 +147,7 @@ export const acceptFriendRequestAction = (userId) => async (dispatch) => {
             dispatch(setFriends(res.data.friends)); // Set entire pendingRequests array
             dispatch(setPendingRequests(res.data.pendingRequests));
             toast.success(res.data.message || "Friend request accepted successfully!"); // Success message
-            dispatch(acceptRealtimeRequest());
+            // dispatch(acceptRealtimeRequest());
         }
     } catch (error) {
         // Error handling
