@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { baseURL } from './userActions';
-import { addMessage, setMessages, setSeletedUser } from '../slices/chatSlice';
+import { addMessage, setMessages, setSeletedUser, setTypingStatus } from '../slices/chatSlice';
 
 export const getMessages = (userId) => async (dispatch) => {
     try {
@@ -44,3 +44,19 @@ export const sendRealtimeMessage = () => async (dispatch, getState) => {
     }
 }
 
+// Handle typing status here
+
+export const handleTypingStatus = () => (dispatch, getState) => {
+    const { user } = getState();
+    const { socket } = user;
+
+    if (socket) {
+        socket.on("typing", ({ senderId, isTyping }) => {
+            dispatch(setTypingStatus({ userId: senderId, isTyping }));
+        });
+
+        return () => {
+            socket.off("typing");
+        };
+    }
+};

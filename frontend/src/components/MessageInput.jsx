@@ -1,11 +1,13 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react'
 import { Image, Loader2, Send, X } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { sendNewMessage } from '../store/actions/chatActions';
+import { handleTypingStatus, sendNewMessage } from '../store/actions/chatActions';
 
 const MessageInput = ({ selectedFriend }) => {
     const dispatch = useDispatch();
+
+    const { socket, authUser } = useSelector(state => state.user);
 
     const fileInputRef = useRef(null);
     const [text, setText] = useState("");
@@ -48,10 +50,42 @@ const MessageInput = ({ selectedFriend }) => {
             setImagePreview(null);
             fileInputRef.current.value = null;
 
+            if (socket) {
+                socket.emit("typing", {
+                    senderId: authUser._id,
+                    receiverId: selectedFriend?._id,
+                    isTyping: false,
+                });
+
+
+            }
+
         } catch (error) {
             toast.error(error.response.data.message);
         }
     }
+
+    const handleTyping = (e) => {
+        setText(e.target.value);
+        if (socket) {
+            socket.emit("typing", {
+                senderId: authUser._id,
+                receiverId: selectedFriend?._id,
+                isTyping: e.target.value.length > 0,
+            });
+
+            setTimeout(() => {
+                socket.emit("typing", {
+                    senderId: authUser._id,
+                    receiverId: selectedFriend?._id,
+                    isTyping: false,
+                });
+            }, 2000);
+
+            clearTimeout();
+        }
+    };
+
 
 
 
@@ -84,7 +118,7 @@ const MessageInput = ({ selectedFriend }) => {
                         className='input input-bordered w-full input-sm sm:input-md'
                         placeholder='Type a message...'
                         value={text}
-                        onChange={(e) => setText(e.target.value)}
+                        onChange={handleTyping}
                         disabled={loading}
                     />
                     <input

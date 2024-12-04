@@ -19,7 +19,7 @@ import Friends from './pages/Friends';
 import Notification from './components/Notification';
 
 import { acceptRealtimeRequest, checkAuth, connectSocket, fetchFriends, fetchPendingRequests, sendRealtimeRequest } from './store/actions/userActions';
-import { sendRealtimeMessage } from './store/actions/chatActions';
+import { handleTypingStatus, sendRealtimeMessage } from './store/actions/chatActions';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +41,8 @@ function App() {
       await dispatch(sendRealtimeRequest());
       await dispatch(acceptRealtimeRequest());
       await dispatch(sendRealtimeMessage());
+      await dispatch(handleTypingStatus())
+
       // }
     }
     callDispatchs();

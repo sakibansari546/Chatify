@@ -20,7 +20,6 @@ export const chatSlice = createSlice({
             state.seletedUser = action.payload
         },
         setTypingStatus: (state, action) => {
-            console.log(action.payload);
             const { userId, isTyping } = action.payload;
             state.typingStatus[userId] = isTyping;
         },

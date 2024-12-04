@@ -27,9 +27,10 @@ io.on("connection", (socket) => {
     if (userId) userSocketMap[userId] = socket.id;
 
     socket.on("typing", ({ senderId, receiverId, isTyping }) => {
-        // Notify the receiver about typing status
-        io.to(receiverId).emit("typing", { senderId, isTyping });
-        // Optionally update database typingStatus if persistence is needed
+        const receiverSocketId = userSocketMap[receiverId];
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("typing", { senderId, isTyping });
+        }
     });
 
 
