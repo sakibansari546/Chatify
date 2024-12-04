@@ -94,7 +94,7 @@ export const sendMessage = async (req, res) => {
             res.status(400).json({ success: false, message: "Invalid message data" });
         }
 
-        
+
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" });
     }
