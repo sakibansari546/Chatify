@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { baseURL } from './userActions';
-import { setMessages, setSeletedUser } from '../slices/chatSlice';
+import { addMessage, setMessages, setSeletedUser } from '../slices/chatSlice';
 
 export const getMessages = (userId) => async (dispatch) => {
     try {
@@ -16,4 +16,15 @@ export const getMessages = (userId) => async (dispatch) => {
 
 export const setSeletedUserChat = (seletedUser) => async (dispatch) => {
     dispatch(setSeletedUser(seletedUser))
+}
+
+export const sendNewMessage = (userId, message) => async (dispatch) => {
+    try {
+        const res = await axios.post(`${baseURL}/chat/send-message/${userId}`, message, { withCredentials: true });
+        if (res.data.success) {
+            dispatch(addMessage(res.data.message));
+        }
+    } catch (error) {
+        toast.error(error.response.data.message);
+    }
 }

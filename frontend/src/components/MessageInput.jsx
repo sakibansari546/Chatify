@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react'
 import { Image, Loader2, Send, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { sendNewMessage } from '../store/actions/chatActions';
 
-const MessageInput = () => {
+const MessageInput = ({ selectedFriend }) => {
+    const dispatch = useDispatch();
 
     const fileInputRef = useRef(null);
     const [text, setText] = useState("");
@@ -33,9 +36,13 @@ const MessageInput = () => {
         try {
             const formData = new FormData();
             formData.append("text", text);
-            formData.append("image", fileInputRef.current.files[0]);
-            setLoading(true)
-            setLoading(false)
+            if (fileInputRef.current.files[0]) {
+                formData.append("image", fileInputRef.current.files[0]);
+            }
+
+            setLoading(true);
+            await dispatch(sendNewMessage(selectedFriend?._id, formData))
+            setLoading(false);
             // clear form values
             setText("");
             setImagePreview(null);

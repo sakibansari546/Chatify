@@ -27,10 +27,8 @@ const ChatContainer = () => {
             dispatch(setSeletedUserChat(selectedFriend));
             setLoading(false);
         }
-        console.log(selectedUser);
-
         fetchMessages();
-    }, [getMessages, username, selectedFriend, selectedUser]);
+    }, [getMessages, selectedFriend]);
 
 
     // Format message timestamp
@@ -44,7 +42,7 @@ const ChatContainer = () => {
 
     useEffect(() => {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [])
+    }, [messages, selectedFriend])
 
     return (
         <div className='min-h-screen bg-base-100 py-10'>
