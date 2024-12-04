@@ -1,6 +1,6 @@
 import express from "express";
 
-import { protectedRoute } from "../middlewares/auth.middleware.js";
+import { protectedRoute } from "../middlewares/auth.middleware.js"
 import { upload } from '../middlewares/multer.js'
 
 import { getMessages, sendMessage } from "../controllers/chat.controller.js";
