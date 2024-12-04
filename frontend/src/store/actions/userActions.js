@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { io } from "socket.io-client";
 import { setAuthUser, setCheckingAuth, setFriends, setOnlineUsers, setPendingRequests, setRecomendedUsers, setSearchResult, setSocket } from '../slices/userSlice';
 
-const baseURL = `${import.meta.env.VITE_BACKEND_URL}/api`;
+export const baseURL = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 export const checkAuth = () => async (dispatch) => {
     try {
