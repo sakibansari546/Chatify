@@ -182,9 +182,6 @@ export const connectSocket = () => async (dispatch, getState) => {
     const { user } = getState();
     const { authUser } = user;
 
-    console.log(user.onlineUsers);
-
-
     if (!authUser) {
         console.error("User not authenticated. Cannot connect socket.");
         return;

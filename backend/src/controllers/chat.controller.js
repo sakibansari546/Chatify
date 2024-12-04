@@ -1,4 +1,5 @@
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 import Message from "../models/chet.model.js"
 import User from "../models/user.model.js"
 
@@ -94,6 +95,10 @@ export const sendMessage = async (req, res) => {
             res.status(400).json({ success: false, message: "Invalid message data" });
         }
 
+        const reciverSocketId = getReceiverSocketId(reciverId);
+        if (reciverSocketId) {
+            io.to(reciverSocketId).emit("newMessage", newMessage);
+        }
 
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" });

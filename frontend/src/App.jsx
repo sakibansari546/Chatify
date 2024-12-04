@@ -19,11 +19,17 @@ import Friends from './pages/Friends';
 import Notification from './components/Notification';
 
 import { acceptRealtimeRequest, checkAuth, connectSocket, fetchFriends, fetchPendingRequests, sendRealtimeRequest } from './store/actions/userActions';
+import { sendRealtimeMessage } from './store/actions/chatActions';
 
 function App() {
   const dispatch = useDispatch();
   const { theme } = useSelector(state => state.theme);
   const { isCheckingAuth, authUser } = useSelector(state => state.user);
+
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [checkAuth])
 
   useEffect(() => {
     const callDispatchs = async () => {
@@ -34,10 +40,11 @@ function App() {
       await dispatch(connectSocket());
       await dispatch(sendRealtimeRequest());
       await dispatch(acceptRealtimeRequest());
+      await dispatch(sendRealtimeMessage());
       // }
     }
     callDispatchs();
-  }, [checkAuth, fetchFriends, fetchPendingRequests, connectSocket, sendRealtimeRequest, acceptRealtimeRequest]);
+  }, [checkAuth, fetchFriends, fetchPendingRequests, connectSocket, sendRealtimeRequest, acceptRealtimeRequest, sendRealtimeMessage]);
 
   if (isCheckingAuth && !authUser) return (
     <div className='flex items-center justify-center w-full h-screen'>

@@ -28,3 +28,18 @@ export const sendNewMessage = (userId, message) => async (dispatch) => {
         toast.error(error.response.data.message);
     }
 }
+
+export const sendRealtimeMessage = () => async (dispatch, getState) => {
+    const { user } = getState();
+    const { socket } = user;
+
+    if (socket) {
+        socket.on("newMessage", (data) => {
+            dispatch(addMessage(data));
+        });
+
+        return () => {
+            socket.off("newMessage");
+        };
+    }
+}
