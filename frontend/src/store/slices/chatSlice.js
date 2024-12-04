@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     messages: [],
     seletedUser: null,
+    typingStatus: {},
 }
 
 export const chatSlice = createSlice({
@@ -18,10 +19,15 @@ export const chatSlice = createSlice({
         setSeletedUser: (state, action) => {
             state.seletedUser = action.payload
         },
+        setTypingStatus: (state, action) => {
+            console.log(action.payload);
+            const { userId, isTyping } = action.payload;
+            state.typingStatus[userId] = isTyping;
+        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setMessages, addMessage, setSeletedUser } = chatSlice.actions
+export const { setMessages, addMessage, setSeletedUser, setTypingStatus } = chatSlice.actions
 
 export default chatSlice.reducer

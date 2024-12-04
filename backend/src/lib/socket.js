@@ -26,6 +26,13 @@ io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
     if (userId) userSocketMap[userId] = socket.id;
 
+    socket.on("typing", ({ senderId, receiverId, isTyping }) => {
+        // Notify the receiver about typing status
+        io.to(receiverId).emit("typing", { senderId, isTyping });
+        // Optionally update database typingStatus if persistence is needed
+    });
+
+
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
     socket.on("disconnect", () => {
