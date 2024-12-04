@@ -116,11 +116,11 @@ const ChatContainer = () => {
                     ))
                 )}
             </div>
-            
+
             {isTyping && (
                 <div className="flex items-center justify-center w-full fixed bottom-10 bg-base-100">
                     <div className="text-md text-primary pb-2">
-                        <p>Typing...</p>
+                        <p>{selectedFriend?.username} Typing...</p>
                     </div>
                 </div>
             )}
