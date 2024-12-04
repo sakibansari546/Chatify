@@ -62,7 +62,7 @@ function App() {
           </Route>
 
         </Route>
-        <Route path='chat/:seletedUser' element={authUser ? <ChatContainer /> : <Navigate to='/login' />} />
+        <Route path='chat/:username' element={authUser ? <ChatContainer /> : <Navigate to='/login' />} />
 
       </Routes>
       <Toaster />

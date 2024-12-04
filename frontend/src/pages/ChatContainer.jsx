@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import ChatHeader from '../components/ChatHeader'
 import MessageInput from '../components/MessageInput'
-import { getMessages } from '../store/actions/chatActions'
+import { getMessages, setSeletedUserChat } from '../store/actions/chatActions'
 import { setSeletedUser } from '../store/slices/chatSlice'
 import MessageSkeleton from '../components/skeletons/MessagesSkeleton'
 
@@ -22,11 +22,13 @@ const ChatContainer = () => {
 
     useEffect(() => {
         const fetchMessages = async () => {
-            setLoading(true)
+            setLoading(true);
             await dispatch(getMessages(selectedFriend?._id));
-            await dispatch(setSeletedUser(selectedFriend));
+            dispatch(setSeletedUserChat(selectedFriend));
             setLoading(false);
         }
+        console.log(selectedUser);
+
         fetchMessages();
     }, [getMessages, username, selectedFriend, selectedUser]);
 

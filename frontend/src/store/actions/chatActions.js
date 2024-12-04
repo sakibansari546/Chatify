@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { baseURL } from './userActions';
-import { setMessages } from '../slices/chatSlice';
+import { setMessages, setSeletedUser } from '../slices/chatSlice';
 
 export const getMessages = (userId) => async (dispatch) => {
     try {
@@ -12,4 +12,8 @@ export const getMessages = (userId) => async (dispatch) => {
     } catch (error) {
         console.error(error);
     }
+}
+
+export const setSeletedUserChat = (seletedUser) => async (dispatch) => {
+    dispatch(setSeletedUser(seletedUser))
 }
