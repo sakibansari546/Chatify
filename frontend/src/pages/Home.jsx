@@ -30,12 +30,8 @@ const Home = () => {
 
     // Check if user is already a friend
     const isFriend = (userId) => authUser?.friends?.includes(userId);
-
     // Check if friend request is pending
     const isPending = (userId) => pendingRequests?.some((req) => req._id == userId);
-
-
-
 
     return (
         <div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckCircle, Clock, Loader, Loader2, Send } from 'lucide-react';
 import { fetchRecomendedUsers, sendFriendRequestAction } from '../store/actions/userActions';
+import UserCardSkeleton from './skeletons/UserCardSkeleton';
 
 const RecomendedUsers = () => {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const RecomendedUsers = () => {
             <div className="flex flex-col gap-3 mt-4 mx-4">
                 {loading ? (
                     <div className="flex justify-center items-center h-16">
-                        <p>Loading...</p> {/* Loader */}
+                        <Loader2 size={30} className="animate-spin" />
                     </div>
                 ) : (
                     recomendedUsers?.map((user) => (
