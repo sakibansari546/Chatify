@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CheckCircle, Clock, Loader, Loader2, Send } from 'lucide-react';
 import { fetchRecomendedUsers, sendFriendRequestAction } from '../store/actions/userActions';
-import UserCardSkeleton from './skeletons/UserCardSkeleton';
 
 const RecomendedUsers = () => {
     const dispatch = useDispatch();
