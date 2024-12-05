@@ -31,13 +31,13 @@ const Signup = () => {
         return true;
     };
 
-    const hanldeSubmit = (e) => {
+    const hanldeSubmit = async (e) => {
         e.preventDefault();
         const ifValidate = validateForm();
 
         if (ifValidate == true) {
             setLoading(true);
-            dispatch(signup(formData));
+            await dispatch(signup(formData));
             setLoading(false);
         }
     };

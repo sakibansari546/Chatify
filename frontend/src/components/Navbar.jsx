@@ -32,19 +32,25 @@ const Navbar = () => {
                             </Link>
 
 
-                            <>
-                                <Link to={`/profile/${authUser?.username}`} className={`btn btn-sm gap-2`}>
-                                    <User className="size-5" />
-                                    <span className="hidden sm:inline">{authUser?.username}</span>
-                                </Link>
+                            {
+                                authUser ? (
+                                    <>
+                                        <Link to={`/profile/${authUser?.username}`} className={`btn btn-sm gap-2`}>
+                                            <User className="size-5" />
+                                            <span className="hidden sm:inline">{authUser?.username}</span>
+                                        </Link>
 
-                                <button
-                                    onClick={() => dispatch(logout())}
-                                    className="flex gap-2 items-center" >
-                                    <LogOut className="size-5" />
-                                    <span className="hidden sm:inline">Logout</span>
-                                </button>
-                            </>
+                                        <button
+                                            onClick={() => dispatch(logout())}
+                                            className="flex gap-2 items-center" >
+                                            <LogOut className="size-5" />
+                                            <span className="hidden sm:inline">Logout</span>
+                                        </button>
+                                    </>
+                                ) : <Link to={`/signup`} className={`btn btn-sm gap-2`}>
+                                    <span className="sm:inline">Signup</span>
+                                </Link>
+                            }   
 
                         </div>
                     </div>

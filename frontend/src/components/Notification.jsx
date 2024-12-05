@@ -26,15 +26,15 @@ const Notification = () => {
     }, [fetchPendingRequests]);
 
     return (
-        <div className='w-full min-h-screen p-4 pt-20'>
-            <h1 className='pb-4 text-2xl font-semibold'>Notifications</h1>
+        <div className='w-full min-h-screen p-4 pt-20 bg-base-100'>
+            <h1 className='pb-2 text-2xl font-semibold'>Notifications</h1>
 
-            <div className='flex flex-col gap-3 mt-4 mx-4'>
+            <div className='flex flex-col gap-3 mt-4 mx-'>
                 {
                     !pendingRequests.length ?
                         <p className='text-center'>No notifications</p>
                         : pendingRequests.map((request, index) => (
-                            <div key={index} className="p-2 flex items-center justify-between hover:bg-base-200 cursor-pointer bg-base-200">
+                            <div key={index} className="p-2 flex items-center justify-between hover:bg-base-100 cursor-pointer bg-base-200">
                                 <div className="flex items-center gap-3">
                                     <div className="avatar">
                                         <div className="w-12 rounded-full">
@@ -43,7 +43,7 @@ const Notification = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-medium">@{request.username}</h3>
-                                        <p className="text-sm text-gray-500">Request to friend</p>
+                                        <p className="text-sm text-gray-500">Friend Request</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-2">

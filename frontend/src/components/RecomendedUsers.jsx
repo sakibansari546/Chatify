@@ -37,7 +37,9 @@ const RecomendedUsers = () => {
 
     return (
         <div>
-            <h1 className='px-4 text-xl font-medium'>Recommended</h1>
+            {
+                recomendedUsers.length ? <h1 className='px-4 text-xl font-medium'>Recommended</h1> : <h1 className='text-center'> No recomended users</h1>
+            }
             <div className="flex flex-col gap-3 mt-4 mx-4">
                 {loading ? (
                     <div className="flex justify-center items-center h-16">

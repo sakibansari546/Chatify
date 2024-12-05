@@ -5,7 +5,7 @@ import { fetchFriends } from '../store/actions/userActions';
 
 const Friends = () => {
     const dispath = useDispatch();
-    const { friends, authUser } = useSelector(state => state.user)
+    const { friends, authUser, onlineUsers } = useSelector(state => state.user)
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -18,9 +18,9 @@ const Friends = () => {
         getFriends()
     }, [fetchFriends])
 
-    const handleSendMessage = (e) => {
-        e.preventDefault();
-    };
+    const filteredFriends = friends.filter((friend) =>
+        friend.username.toLowerCase().includes(text.toLowerCase())
+    );
 
     return (
         <div>
@@ -45,8 +45,8 @@ const Friends = () => {
 
                             <div className='flex flex-col gap-3 mt-2 mx-4'>
                                 {
-                                    !friends.length ? "No friends"
-                                        : friends.map((friend) => (
+                                    !filteredFriends.length ? "No friends found!"
+                                        : filteredFriends.map((friend) => (
                                             <div key={friend._id} className="p-2 flex items-center justify-between hover:bg-base-200 cursor-pointer bg-base-200">
                                                 <div className="flex items-center gap-3">
                                                     <div className="avatar">
@@ -59,8 +59,8 @@ const Friends = () => {
                                                         <p className="text-sm text-gray-500">{friend.fullName}</p>
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary btn-circle">
-                                                    <Send size={20} />
+                                                <button className="btn btn-primary btn-circle text-lg   ">
+                                                    ✕
                                                 </button>
                                             </div>
                                         ))

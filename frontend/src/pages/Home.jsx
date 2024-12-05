@@ -40,11 +40,11 @@ const Home = () => {
     return (
         <div>
             <div className="min-h-screen bg-base-200">
-                <div className="pt-16 md:ml-[20vw] pb-16">
+                <div className="pt-16 md:ml-[20vw] pb-">
                     <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-6xl min-h-[calc(100vh-8rem)]">
                         <div className="rounded-lg overflow-hidden">
                             {/* Search Input */}
-                            <div className="p-4 border-b">
+                            <div className="p-4">
                                 <input
                                     type="text"
                                     placeholder="Search users..."

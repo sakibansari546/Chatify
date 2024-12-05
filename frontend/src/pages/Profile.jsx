@@ -27,7 +27,7 @@ const Profile = () => {
             const formData = new FormData();
             formData.append('profilePic', file);
             setLoading(true);
-            dispatch(updateProfile(formData));
+            await dispatch(updateProfile(formData));
             setLoading(false);
             setSelectedImg(null);
         };
