@@ -1,0 +1,13 @@
+{
+  "name": "Chatify",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "pnpm install --prefix backend && pnpm install --prefix frontend && pnpm --prefix frontend run build",
+    "start": "pnpm --prefix backend run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
