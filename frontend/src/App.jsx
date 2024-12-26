@@ -56,6 +56,8 @@ function App() {
 
   return (
     <div className='bg-base-200' data-theme={theme}>
+      <div className="hidden md:block w-full h-screen text-5xl flex items-center justify-center">This app only visible on Mobile...</div>
+      <div className="block md:hidden">
       <Routes>
         <Route path='/' element={<Navbar />} >
           <Route path='signup' element={!authUser ? <Signup /> : <Navigate to='/' />} />
@@ -76,6 +78,7 @@ function App() {
       </Routes>
       <Toaster />
     </div >
+      </div>
   )
 }
 
