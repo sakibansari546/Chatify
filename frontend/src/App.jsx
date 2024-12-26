@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className='bg-base-200' data-theme={theme}>
-      <div className="hidden md:block w-full h-screen text-5xl flex items-center justify-center">This app only visible on Mobile...</div>
+      <div className="hidden md:block w-full h-screen text-5xl flex items-center justify-center"><h1>This is only visible on monbile screen....</h1></div>
       <div className="block md:hidden">
       <Routes>
         <Route path='/' element={<Navbar />} >
